@@ -5,22 +5,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
-
 
 public class MainActivity extends ActionBarActivity {
 
     ViewSwitcher mViewSwitch;
-    ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //spinner = (ProgressBar) findViewById(R.id.loading_joke);
-        //spinner.setVisibility(View.GONE);
 
         mViewSwitch = (ViewSwitcher) findViewById(R.id.viewSwitcher);
     }
@@ -47,8 +41,12 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method called when the user clicks on the button
+     *
+     * @param view The view that triggered this action
+     */
     public void tellJoke(View view){
-        //spinner.setVisibility(View.VISIBLE);
         mViewSwitch.showNext();
         new EndpointsAsyncTask().execute(this);
     }

@@ -17,7 +17,6 @@ import com.udacity.gradle.builditbigger.R;
 public class MainActivity extends ActionBarActivity {
 
     InterstitialAd mInterstitialAd;
-    //ProgressBar spinner;
     ViewSwitcher mViewSwitch;
 
     @Override
@@ -49,7 +48,6 @@ public class MainActivity extends ActionBarActivity {
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        //spinner = (ProgressBar) findViewById(R.id.loading_joke);
         mViewSwitch = (ViewSwitcher) findViewById(R.id.viewSwitcher);
 
         final MainActivity mainActivity = this;
@@ -65,12 +63,23 @@ public class MainActivity extends ActionBarActivity {
         requestNewInterstitial();
     }
 
+    /**
+     * Method called when the user clicks on the button
+     *
+     * @param view The view that triggered this action
+     */
     public void tellJoke(View view){
+
+        // because this is the free version we should first show the interstitial ad
+        // and then when the ad is closed we call the java library to retrieve the joke
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }
     }
 
+    /**
+     * Method used to load a new Interstitial Ad
+     */
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")

@@ -14,7 +14,7 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import java.io.IOException;
 
 /**
- * Created by wandersalomao.
+ * @author Wander Salomao
  */
 public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
 
@@ -46,7 +46,10 @@ public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
         this.context = context[0];
 
         try {
+
+            // use the service api to call the java library to retrieve a joke
             return myApiService.tellJoke().execute().getData();
+
         } catch (IOException e) {
             return "Problem trying to connect to your service: " + e.getMessage();
         }
@@ -54,7 +57,6 @@ public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        //Toast.makeText(context, result, Toast.LENGTH_LONG).show();
 
         // Get a joke and display it in a new activity.
         Intent intent = new Intent(context, JokeActivity.class);

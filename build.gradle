@@ -17,3 +17,63 @@ allprojects {
         jcenter()
     }
 }
+
+/**
+ * @author Wander Salomao
+ *
+ * This task is used to launch the GCE local development server
+ */
+task startService() {
+    dependsOn ':backend:appengineRun'
+}
+
+/**
+ * @author Wander Salomao
+ *
+ * This task is used to run the instrumentation tests
+ */
+task tests() {
+    dependsOn ':app:connectedAndroidTest'
+}
+
+/**
+ * @author Wander Salomao
+ *
+ * This task is used to shut the server down
+ */
+task stopService() {
+    dependsOn ':backend:appengineStop'
+}
+
+/**
+ * @author Wander Salomao
+ *
+ * Here we configure the the tests task to run after the startService
+ * task and the stopService task to run after the tests task
+ */
+tests.mustRunAfter startService
+stopService.mustRunAfter tests
+
+/**
+ * @author Wander Salomao
+ *
+ * Here we configure the gceTests task which will start the development
+ * server, run the server and shut the server down using the previous
+ * defined tasks
+ */
+task gceTests() {
+    group = 'verification'
+    description = 'Run Android tests depending on the GCE development server'
+
+    evaluationDependsOn ":backend"
+
+    project(":backend"){
+        appengine{
+            daemon true
+        }
+    }
+
+    dependsOn startService
+    dependsOn tests
+    dependsOn stopService
+}

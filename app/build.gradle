@@ -18,6 +18,11 @@ android {
         }
     }
 
+    /**
+     * @author Wander Salomao
+     *
+     * Requirement 5 - Add free and paid product flavors
+     */
     productFlavors {
         free {
             applicationId "com.udacity.gradle.builditbigger.free"
@@ -35,7 +40,13 @@ dependencies {
     // Added for AdMob
     compile 'com.android.support:appcompat-v7:22.1.1'
     freeCompile 'com.google.android.gms:play-services:7.3.0'
+
+    // Requirement 1 - Add a dependency to the java library
     compile project(":jokeslib");
+
+    // Requirement 2 - Add a dependency to the Android library
     compile project(":jokeactivity");
+
+    // Requirement 3 - Add a dependency to the GCE module
     compile project(path: ':backend', configuration: 'android-endpoints')
 }
